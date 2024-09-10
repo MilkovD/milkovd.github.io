@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Перевод русских клавиш на английские</h1>
+    <input type="text" id="inputField" placeholder="Введите текст на русском">
+    <p>Переведенный текст: <span id="translatedText"></span></p>
+
+    <script>
+        // Словарь для перевода русских клавиш на английские, включая цифры и специальные символы
+        const translateKey = (char) => {
+            const mapping = {
+                а: 'f', А: 'F', б: ',', Б: '<', в: 'd', В: 'D', г: 'u', Г: 'U', д: 'l', Д: 'L',
+                е: 't', Е: 'T', ё: '`', Ё: '~', ж: ';', Ж: ':', з: 'p', З: 'P', и: 'b', И: 'B',
+                й: 'q', Й: 'Q', к: 'r', К: 'R', л: 'k', Л: 'K', м: 'v', М: 'V', н: 'y', Н: 'Y',
+                о: 'j', О: 'J', п: 'g', П: 'G', р: 'h', Р: 'H', с: 'c', С: 'C', т: 'n', Т: 'N',
+                у: 'e', У: 'E', ф: 'a', Ф: 'A', х: '[', Х: '{', ц: 'w', Ц: 'W', ч: 'x', Ч: 'X',
+                ш: 'i', Ш: 'I', щ: 'o', Щ: 'O', ъ: ']', Ъ: '}', ы: 's', Ы: 'S', ь: 'm', Ь: 'M',
+                э: "'", Э: '"', ю: '.', Ю: '>', я: 'z', Я: 'Z',
+                '1': '1', '!': '!', '2': '2', '"': '@', '3': '3', '№': '#', '4': '4', ';': '$',
+                '5': '5', '%': '%', '6': '6', ':': '^', '7': '7', '?': '&', '8': '8', '*': '*',
+                '9': '9', '(': '(', '0': '0', ')': ')', '-': '-', '_': '_', '=': '=', '+': '+'
+            };
+
+            return mapping[char] || char;
+        };
+
+        // Функция для обработки ввода и перевода символов
+        const handleInputChange = (event) => {
+            const value = event.target.value;
+            const translatedValue = value
+                .split('')
+                .map((char) => translateKey(char))
+                .join('');
+            document.getElementById('translatedText').textContent = translatedValue;
+        };
+
+        // Добавляем обработчик события к полю ввода
+        document.getElementById('inputField').addEventListener('input', handleInputChange);
+    </script>
+</body>
+</html>
