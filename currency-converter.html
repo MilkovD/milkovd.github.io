@@ -11,15 +11,38 @@
             margin: 20px;
         }
 
-        input {
-            padding: 10px;
-            width: 100px;
+        .currency {
+            display: flex;
+            align-items: center;
             margin-bottom: 10px;
-            display: block;
         }
 
-        .currency {
-            margin-bottom: 15px;
+        .currency-code {
+            width: 50px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 12px;
+            color: gray;
+            margin-left: 10px;
+            width: 150px;
+        }
+
+        .currency-input {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: transparent;
+            padding: 5px;
+            width: 100px;
+            text-align: right;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .currency-input:focus {
+            outline: none;
+            border-bottom: 1px solid black;
         }
 
         .timestamp {
@@ -39,8 +62,17 @@
     <script>
         const apiUrl = 'https://open.er-api.com/v6/latest/USD';  // Example API for currency rates
 
-        // Define the currencies to be displayed
-        const currencies = ['USD', 'EUR', 'GBP', 'JPY']; // Add or remove currencies here
+        // Define the currencies and their descriptions
+        const currencies = [
+            { code: 'USD', description: 'Доллар США' },
+            { code: 'EUR', description: 'Евро' },
+            { code: 'RUB', description: 'Российский рубль' },
+            { code: 'KZT', description: 'Казахстанский тенге' },
+            { code: 'LKR', description: 'Шри-ланкийская рупия' },
+            { code: 'MYR', description: 'Малайзийский ринггит' },
+            { code: 'PHP', description: 'Филиппинское песо' },
+            { code: 'HKD', description: 'Гонконгский доллар' }
+        ];
 
         // Elements
         const currencyContainer = document.getElementById('currency-container');
@@ -56,24 +88,31 @@
                 const currencyDiv = document.createElement('div');
                 currencyDiv.className = 'currency';
 
-                const label = document.createElement('label');
-                label.textContent = currency + ':';
+                const codeLabel = document.createElement('span');
+                codeLabel.className = 'currency-code';
+                codeLabel.textContent = currency.code;
+
+                const description = document.createElement('span');
+                description.className = 'description';
+                description.textContent = currency.description;
 
                 const input = document.createElement('input');
                 input.type = 'number';
-                input.id = currency.toLowerCase();
-                input.placeholder = currency;
+                input.className = 'currency-input';
+                input.id = currency.code.toLowerCase();
+                input.placeholder = currency.code;
 
-                currencyInputs[currency] = input;
+                currencyInputs[currency.code] = input;
 
                 input.addEventListener('input', () => {
-                    lastTypedCurrency = currency;
+                    lastTypedCurrency = currency.code;
                     const amount = parseFloat(input.value);
-                    if (!isNaN(amount)) convertCurrency(currency, amount);
+                    if (!isNaN(amount)) convertCurrency(currency.code, amount);
                     saveAmounts();
                 });
 
-                currencyDiv.appendChild(label);
+                currencyDiv.appendChild(codeLabel);
+                currencyDiv.appendChild(description);
                 currencyDiv.appendChild(input);
                 currencyContainer.appendChild(currencyDiv);
             });
@@ -85,7 +124,7 @@
             const savedTimestamp = localStorage.getItem('currencyRatesTimestamp');
             if (savedRates && savedTimestamp) {
                 rates = JSON.parse(savedRates);
-                updateTimestamp(savedTimestamp);
+                updateTimestamp(savedTimestamp, false);
             }
 
             try {
@@ -97,7 +136,7 @@
                     const timestamp = new Date().toISOString();
                     localStorage.setItem('currencyRates', JSON.stringify(rates));
                     localStorage.setItem('currencyRatesTimestamp', timestamp);
-                    updateTimestamp(timestamp);
+                    updateTimestamp(timestamp, true);
                 }
             } catch (error) {
                 if (!rates || Object.keys(rates).length === 0) {
@@ -109,8 +148,12 @@
         }
 
         // Update timestamp display
-        function updateTimestamp(timestamp) {
-            timestampElement.textContent = `Last updated: ${new Date(timestamp).toLocaleString()}`;
+        function updateTimestamp(timestamp, isApiSuccessful) {
+            if (isApiSuccessful) {
+                timestampElement.textContent = `Last updated: ${new Date(timestamp).toLocaleString()}`;
+            } else {
+                timestampElement.textContent = `Loaded from local storage: ${new Date(timestamp).toLocaleString()}`;
+            }
         }
 
         // Convert from a base currency and update other currencies
@@ -118,12 +161,12 @@
             if (!rates || !rates['USD']) return;
 
             currencies.forEach(currency => {
-                if (currency !== baseCurrency) {
+                if (currency.code !== baseCurrency) {
                     const convertedAmount = baseCurrency === 'USD'
-                        ? amount * rates[currency]
-                        : (amount / rates[baseCurrency] * rates[currency]);
+                        ? amount * rates[currency.code]
+                        : (amount / rates[baseCurrency] * rates[currency.code]);
 
-                    currencyInputs[currency].value = convertedAmount.toFixed(2);
+                    currencyInputs[currency.code].value = convertedAmount.toFixed(2);
                 }
             });
         }
@@ -132,7 +175,7 @@
         function saveAmounts() {
             const amounts = {};
             currencies.forEach(currency => {
-                amounts[currency] = currencyInputs[currency].value;
+                amounts[currency.code] = currencyInputs[currency.code].value;
             });
             amounts.lastTypedCurrency = lastTypedCurrency;
             localStorage.setItem('currencyAmounts', JSON.stringify(amounts));
@@ -144,7 +187,7 @@
             if (savedAmounts) {
                 const amounts = JSON.parse(savedAmounts);
                 currencies.forEach(currency => {
-                    currencyInputs[currency].value = amounts[currency] || '';
+                    currencyInputs[currency.code].value = amounts[currency.code] || '';
                 });
 
                 if (amounts.lastTypedCurrency) {
