@@ -68,7 +68,10 @@
                 body: JSON.stringify(data)
             });
             let result = await response.json();
-            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+            document.getElementById('result').innerText = `Гистерезисные потери (Ph): ${result.Ph.toFixed(4)} Вт/кг\n` +
+                `Вихревые потери (Pc): ${result.Pc.toFixed(4)} Вт/кг\n` +
+                `Аномальные потери (Pa): ${result.Pa.toFixed(4)} Вт/кг\n` +
+                `Общие потери (P_total): ${result.P_total.toFixed(4)} Вт/кг`;
         };
 
         document.getElementById('fitForm').onsubmit = async function(event) {
@@ -81,7 +84,10 @@
                 body: JSON.stringify({ data: dataArray })
             });
             let result = await response.json();
-            document.getElementById('fitResult').innerText = JSON.stringify(result, null, 2);
+            document.getElementById('fitResult').innerText = `Подогнанные коэффициенты:\n` +
+                `kh = ${result.kh.toFixed(6)}\n` +
+                `kc = ${result.kc.toFixed(6)}\n` +
+                `ke = ${result.ke.toFixed(6)}`;
         };
         
         function loadTabFromURL() {
