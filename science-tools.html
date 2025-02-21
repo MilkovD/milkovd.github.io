@@ -18,11 +18,11 @@
 </head>
 <body>
     <div>
-        <span class="tab active" onclick="showTab('losses')">Расчет потерь</span>
+        <span class="tab" onclick="showTab('losses')">Расчет потерь</span>
         <span class="tab" onclick="showTab('fit')">Определение коэффициентов</span>
     </div>
     
-    <div id="losses" class="content active">
+    <div id="losses" class="content">
         <h2>Расчет потерь по модели Бертотти</h2>
         <form id="lossesForm">
             <input type="number" step="any" name="f" value="50" placeholder="Частота (Гц)" required>
@@ -54,6 +54,7 @@
             document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
             document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
             document.getElementById(tabId).classList.add('active');
+            history.pushState(null, '', `?tab=${tabId}`);
         }
         
         document.getElementById('lossesForm').onsubmit = async function(event) {
@@ -82,6 +83,14 @@
             let result = await response.json();
             document.getElementById('fitResult').innerText = JSON.stringify(result, null, 2);
         };
+        
+        function loadTabFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const tabId = params.get('tab') || 'losses';
+            showTab(tabId);
+        }
+        
+        window.onload = loadTabFromURL;
     </script>
 </body>
 </html>
