@@ -7,4 +7,38 @@ if (!supabaseUrl || !supabaseKey) {
   console.warn('VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY not set');
 }
 
+export type UserInfo = {
+  id: string;
+  email: string | undefined;
+  fullName: string | null;
+  avatarUrl: string | null;
+};
+
 export const supabase = createClient(supabaseUrl, supabaseKey);
+
+export async function signOut() {
+  await supabase.auth.signOut();
+}
+
+export async function signInWithGoogle(redirectUrl: string) {
+  await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: redirectUrl }
+  });
+}
+
+export function applySession(session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session'], setUser: (value: React.SetStateAction<UserInfo | null>) => void) {
+  if (session?.user) {
+    const md = (session.user.user_metadata || {}) as any;
+    const fullName: string | null = md.full_name ?? md.name ?? md.preferred_username ?? null;
+    const avatarUrl: string | null = md.avatar_url ?? md.picture ?? null;
+    setUser({
+      id: session.user.id,
+      email: session.user.email,
+      fullName,
+      avatarUrl
+    });
+  } else {
+    setUser(null);
+  }
+}

@@ -136,5 +136,60 @@ body {
 
 /* Десктопы: немного воздуха */
 @media (min-width: 1024px) {
-  .main { max-width: 900px; }
+  .main { max-width: 600px; }
 }
+
+/* ===== Auth card (stylish) ===== */
+.authCard {
+  padding: 28px 26px;
+  border-radius: 16px;
+  border: 1px solid var(--divider);
+  background:
+    linear-gradient(180deg,
+      color-mix(in oklab, Canvas 94%, transparent) 0%,
+      color-mix(in oklab, Canvas 88%, transparent) 100%);
+  box-shadow:
+    0 10px 30px color-mix(in oklab, CanvasText 18%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--accent) 14%, transparent) inset;
+}
+
+.authTitle {
+  margin: 0 0 16px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  text-align: center;
+}
+
+.authActions { display: flex; justify-content: center; }
+
+/* ===== Buttons (modern) ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: inherit;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 0;
+  cursor: pointer;
+  transition: transform .04s ease, filter .2s ease, box-shadow .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-lg { padding: 12px 16px; border-radius: 14px; }
+
+.btn-primary {
+  color: white;
+  background: linear-gradient(90deg, #323839 0%, #00d4ff54 100%);
+  box-shadow: 0 8px 24px  color-mix(in oklab, #323839 28%, transparent);
+}
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, #00d4ff 32%, transparent),
+    0 8px 24px color-mix(in oklab, var(--accent) 28%, transparent);
+}
+
+/* Google icon inside the button */
+.gIcon { display: block; }
