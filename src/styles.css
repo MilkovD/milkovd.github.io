@@ -1,40 +1,101 @@
-:root {
-  color-scheme: light dark;
+/* Верхняя панель с аватаркой */
+.header {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
 }
 
-html, body, #root {
-  height: 100%;
-  margin: 0;
-}
-
-.center {
-  min-height: 100%;
+.avatarButton {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, CanvasText 18%, transparent);
+  background: Canvas;
   display: grid;
   place-items: center;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  cursor: pointer;
 }
 
-.card {
-  padding: 24px 28px;
-  border-radius: 16px;
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  font-weight: 700;
+  font-size: 14px;
+  opacity: .9;
+}
+
+.menu {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  min-width: 160px;
+  background: Canvas;
   border: 1px solid color-mix(in oklab, CanvasText 15%, transparent);
-  box-shadow: 0 4px 18px color-mix(in oklab, CanvasText 12%, transparent);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px color-mix(in oklab, CanvasText 18%, transparent);
+  padding: 6px;
 }
 
-h1 {
-  margin: 0 0 12px;
-  font-size: 24px;
+.menuItem {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.menuItem:hover {
+  background: color-mix(in oklab, CanvasText 8%, transparent);
+}
+
+/* Контент */
+.title {
+  margin: 0 0 16px;
+  font-size: 26px;
   text-align: center;
 }
 
-button {
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.itemRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in oklab, CanvasText 12%, transparent);
+  border-radius: 12px;
+}
+
+.itemName {
+  font-weight: 500;
+}
+
+.giftBtn {
   font: inherit;
-  padding: 10px 14px;
+  padding: 6px 10px;
   border-radius: 10px;
   border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
   background: canvas;
   cursor: pointer;
 }
-button:hover {
+.giftBtn:hover {
   filter: brightness(1.05);
 }
