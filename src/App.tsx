@@ -20,13 +20,13 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-        const { data } = await supabase.auth.getSession();
-        applySession(data.session);
-        const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-          applySession(session);
-        });
-        setLoading(false);
-        return () => sub.subscription.unsubscribe();
+      const { data } = await supabase.auth.getSession();
+      applySession(data.session);
+      const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+        applySession(session);
+      });
+      setLoading(false);
+      return () => sub.subscription.unsubscribe();
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -87,7 +87,32 @@ export default function App() {
   }
 
   const displayName = user.fullName ?? (user.email ? user.email.split('@')[0] : 'друг');
-  const wishlist = ['PlayStation 5', 'Телевизор', 'Наушники', 'Электросамокат'];
+  const wishlist = [
+    {
+      title: 'PlayStation 5',
+      url: 'https://example.com/ps5',
+      description: 'Консоль для игр, версия Slim',
+      price: '65 000 ₽',
+    },
+    {
+      title: 'Телевизор',
+      url: 'https://example.com/tv',
+      description: '55", 4K, VA, 120 Гц',
+      price: '78 000 ₽',
+    },
+    {
+      title: 'Наушники',
+      url: 'https://example.com/headphones',
+      description: 'Беспроводные, ANC',
+      price: '18 990 ₽',
+    },
+    {
+      title: 'Электросамокат',
+      url: 'https://example.com/scooter',
+      description: 'Запас хода 40 км',
+      price: '32 500 ₽',
+    },
+  ];
 
   return (
     <>

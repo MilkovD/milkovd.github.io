@@ -1,34 +1,34 @@
-:root { color-scheme: light dark; }
+/* ===== Global ===== */
+:root {
+  color-scheme: light dark;
+  --divider: color-mix(in oklab, CanvasText 12%, transparent);
+  --muted: color-mix(in oklab, CanvasText 30%, transparent);
+}
 
-html, body, #root { height: 100%; margin: 0; }
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
 
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+/* ===== Centered utility (used on login/loading) ===== */
 .center {
   min-height: 100%;
   display: grid;
   place-items: center;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 .card {
-  padding: 24px 28px;
-  border-radius: 16px;
-  border: 1px solid color-mix(in oklab, CanvasText 15%, transparent);
-  box-shadow: 0 4px 18px color-mix(in oklab, CanvasText 12%, transparent);
+  padding: 20px 24px;
+  border-radius: 14px;
+  border: 1px solid var(--divider);
 }
 
-h1 { margin: 0 0 12px; font-size: 24px; text-align: center; }
-
-button {
-  font: inherit;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
-  background: canvas;
-  cursor: pointer;
-}
-button:hover { filter: brightness(1.05); }
-
-/* --- header + menu --- */
+/* ===== Header with avatar ===== */
 .header {
   position: fixed;
   top: 12px;
@@ -38,77 +38,132 @@ button:hover { filter: brightness(1.05); }
   gap: 8px;
   z-index: 1000;
 }
+
 .avatarButton {
-  width: 38px; height: 38px; border-radius: 50%;
-  padding: 0; border: 1px solid color-mix(in oklab, CanvasText 18%, transparent);
-  background: Canvas; display: grid; place-items: center; cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  padding: 0;
+  border: 1px solid var(--divider);
+  background: Canvas;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
 }
-.avatarImg { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-.avatarFallback { font-weight: 700; font-size: 14px; opacity: .9; }
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  font-weight: 700;
+  font-size: 14px;
+  opacity: .9;
+}
 
 .menu {
-  position: absolute; top: 46px; right: 0; min-width: 160px;
+  position: absolute;
+  top: 46px;
+  right: 0;
+  min-width: 160px;
   background: Canvas;
-  border: 1px solid color-mix(in oklab, CanvasText 15%, transparent);
+  border: 1px solid var(--divider);
   border-radius: 12px;
   box-shadow: 0 10px 30px color-mix(in oklab, CanvasText 18%, transparent);
   padding: 6px;
 }
+
 .menuItem {
-  width: 100%; text-align: left; border: none; background: transparent;
-  padding: 10px 12px; border-radius: 10px; cursor: pointer;
-}
-.menuItem:hover { background: color-mix(in oklab, CanvasText 8%, transparent); }
-
-/* --- content --- */
-.title { margin: 0 0 16px; font-size: 26px; text-align: center; }
-.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-.itemRow {
-  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
   padding: 10px 12px;
-  border: 1px solid color-mix(in oklab, CanvasText 12%, transparent);
-  border-radius: 12px;
+  border-radius: 10px;
+  cursor: pointer;
 }
-.itemName { font-weight: 500; }
-.giftBtn {
-  font: inherit; padding: 6px 10px; border-radius: 10px;
-  border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
-  background: canvas; cursor: pointer;
+.menuItem:hover {
+  background: color-mix(in oklab, CanvasText 8%, transparent);
 }
-.giftBtn:hover { filter: brightness(1.05); }
 
-/* Основной контент: без рамок, прижат к верху, центр только по горизонтали */
+/* ===== Main content (minimalistic) ===== */
 .main {
-  max-width: 720px;
-  margin: 0 auto;         /* центр по горизонтали */
-  padding: 16px 16px 32px;
+  max-width: 760px;
+  margin: 0 auto;            /* center horizontally */
+  padding: 20px 16px 48px;   /* stick to top, no vertical centering */
 }
 
 .mainTitle {
-  margin: 8px 0 14px;
-  font-size: 26px;
+  margin: 12px 0 10px;
+  font-size: 28px;
   text-align: center;
 }
 
-.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-
-.itemRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 6px 0;         /* без рамок и карточек */
+/* List */
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.itemName { font-weight: 500; }
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--divider);
+}
+.item:first-child {
+  border-top: 1px solid var(--divider);
+}
 
-/* Кнопка дарения оставляем как была */
+/* Left side */
+.itemBody { min-width: 0; }
+
+.itemTitle {
+  font-weight: 600;
+  text-decoration: none;
+}
+.itemTitle:hover { text-decoration: underline; }
+
+.itemDesc {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+/* Right side */
+.itemSide {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 8px;
+}
+
+.price {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Buttons */
 .giftBtn {
   font: inherit;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 10px;
-  border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
-  background: canvas;
+  border: 1px solid var(--divider);
+  background: Canvas;
   cursor: pointer;
 }
 .giftBtn:hover { filter: brightness(1.05); }
+
+/* ===== Mobile layout ===== */
+@media (max-width: 640px) {
+  .item { grid-template-columns: 1fr; }
+  .itemSide { align-items: stretch; }
+  .price { align-self: start; }
+  .giftBtn { width: 100%; }
+}
