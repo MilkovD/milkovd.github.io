@@ -1,59 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
-    <meta name="theme-color" content="black">
-    <link rel="manifest" href="manifest.json">
-
-    <title>Keyboard Layout Translator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            gap: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-    <script>
-        window.addEventListener('load', () => {
-            registerSW();
-        });
-
-        // Register the Service Worker
-        async function registerSW() {
-            if ('serviceWorker' in navigator) {
-                try {
-                    await navigator
-                        .serviceWorker
-                        .register('serviceworker.js');
-                }
-                catch (e) {
-                    console.log('SW registration failed');
-                }
-            }
-        }
-    </script>
-</head>
-
-<body>
-    <h1>What Do U Want</h1>
-    
-    <button onclick="location.href='/rustoeng'">Русская раскладка в английскую</button>
-    <button onclick="location.href='/currency-converter'">Перевод Валют Туда Сюда</button>
-</body>
-
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>wishlist-lite</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
