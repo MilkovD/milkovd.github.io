@@ -76,3 +76,39 @@ button:hover { filter: brightness(1.05); }
   background: canvas; cursor: pointer;
 }
 .giftBtn:hover { filter: brightness(1.05); }
+
+/* Основной контент: без рамок, прижат к верху, центр только по горизонтали */
+.main {
+  max-width: 720px;
+  margin: 0 auto;         /* центр по горизонтали */
+  padding: 16px 16px 32px;
+}
+
+.mainTitle {
+  margin: 8px 0 14px;
+  font-size: 26px;
+  text-align: center;
+}
+
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;         /* без рамок и карточек */
+}
+
+.itemName { font-weight: 500; }
+
+/* Кнопка дарения оставляем как была */
+.giftBtn {
+  font: inherit;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in oklab, CanvasText 20%, transparent);
+  background: canvas;
+  cursor: pointer;
+}
+.giftBtn:hover { filter: brightness(1.05); }
