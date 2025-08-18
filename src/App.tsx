@@ -62,7 +62,7 @@ export default function App() {
                 await supabase.auth.signOut();
                 return;
             }
-            
+
             const metadata = (session.user.user_metadata || {}) as any;
             const fullName: string | null =
                 metadata.full_name ?? metadata.name ?? metadata.preferred_username ?? null;
@@ -112,8 +112,11 @@ export default function App() {
             .maybeSingle();
         if (row) return true;
 
+        console.log('Пользователь не в allowlist, проверяем invite', userId);
+
         // Пробуем заявить инвайт из URL
         const invite = getInviteFromUrl();
+        console.log('invite from URL:', invite);
         if (!invite) return false;
 
         const { data: ok, error } = await supabase.rpc('claim_invite', { p_code: invite });
