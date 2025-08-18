@@ -1,169 +1,138 @@
-/* ===== Global ===== */
+/* ===== Theme & tokens ===== */
 :root {
   color-scheme: light dark;
+
+  --accent: #7c5cff;                   /* современный фиолетовый акцент */
+  --muted: color-mix(in oklab, CanvasText 35%, transparent);
   --divider: color-mix(in oklab, CanvasText 12%, transparent);
-  --muted: color-mix(in oklab, CanvasText 30%, transparent);
+
+  --radius: 10px;
+  --gap: 10px;
 }
 
-html, body, #root {
-  height: 100%;
-  margin: 0;
-}
+html, body, #root { height: 100%; margin: 0; }
 
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  line-height: 1.4;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.35;
 }
 
-/* ===== Centered utility (used on login/loading) ===== */
-.center {
-  min-height: 100%;
-  display: grid;
-  place-items: center;
-}
-
-.card {
-  padding: 20px 24px;
-  border-radius: 14px;
-  border: 1px solid var(--divider);
-}
+/* ===== Centered utility (login/loading) ===== */
+.center { min-height: 100%; display: grid; place-items: center; }
+.card   { padding: 16px 18px; border-radius: var(--radius); border: 1px solid var(--divider); }
 
 /* ===== Header with avatar ===== */
 .header {
-  position: fixed;
-  top: 12px;
-  right: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 1000;
+  position: fixed; top: 10px; right: 14px;
+  display: flex; align-items: center; gap: 8px; z-index: 1000;
 }
-
 .avatarButton {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  padding: 0;
-  border: 1px solid var(--divider);
-  background: Canvas;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
+  width: 36px; height: 36px; border-radius: 50%; padding: 0;
+  border: 1px solid var(--divider); background: Canvas;
+  display: grid; place-items: center; cursor: pointer;
 }
-
-.avatarImg {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.avatarFallback {
-  font-weight: 700;
-  font-size: 14px;
-  opacity: .9;
-}
-
+.avatarImg { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.avatarFallback { font-weight: 700; font-size: 13px; opacity: .9; }
 .menu {
-  position: absolute;
-  top: 46px;
-  right: 0;
-  min-width: 160px;
-  background: Canvas;
-  border: 1px solid var(--divider);
-  border-radius: 12px;
+  position: absolute; top: 42px; right: 0; min-width: 160px;
+  background: Canvas; border: 1px solid var(--divider); border-radius: var(--radius);
   box-shadow: 0 10px 30px color-mix(in oklab, CanvasText 18%, transparent);
   padding: 6px;
 }
-
 .menuItem {
-  width: 100%;
-  text-align: left;
-  border: none;
-  background: transparent;
-  padding: 10px 12px;
-  border-radius: 10px;
-  cursor: pointer;
+  width: 100%; text-align: left; border: 0; background: transparent;
+  padding: 8px 10px; border-radius: var(--radius); cursor: pointer;
 }
-.menuItem:hover {
-  background: color-mix(in oklab, CanvasText 8%, transparent);
-}
+.menuItem:hover { background: color-mix(in oklab, CanvasText 8%, transparent); }
 
-/* ===== Main content (minimalistic) ===== */
+/* ===== Main content (compact & minimal) ===== */
 .main {
-  max-width: 760px;
-  margin: 0 auto;            /* center horizontally */
-  padding: 20px 16px 48px;   /* stick to top, no vertical centering */
+  max-width: 820px;
+  margin: 0 auto;                 /* центр по горизонтали */
+  padding: 14px 14px 40px;        /* прижато к верху */
 }
 
 .mainTitle {
-  margin: 12px 0 10px;
-  font-size: 28px;
+  margin: 10px 0 8px;
+  font-size: 26px;
   text-align: center;
 }
 
 /* List */
-.items {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.item {
+.items { list-style: none; margin: 0; padding: 0; }
+.item  {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 14px;
-  padding: 14px 0;
+  grid-template-columns: 1fr auto;   /* текст + блок с ценой и кнопкой */
+  gap: var(--gap);
+  padding: 10px 0;
   border-bottom: 1px solid var(--divider);
 }
-.item:first-child {
-  border-top: 1px solid var(--divider);
-}
+.item:first-child { border-top: 1px solid var(--divider); }
 
-/* Left side */
+/* Left (title + description) */
 .itemBody { min-width: 0; }
-
 .itemTitle {
-  font-weight: 600;
+  font-weight: 650;
+  color: color-mix(in oklab, CanvasText 20%, var(--accent)); /* убираем синеву браузера */
   text-decoration: none;
 }
-.itemTitle:hover { text-decoration: underline; }
+.itemTitle:hover { text-decoration: underline; text-decoration-color: var(--accent); }
 
 .itemDesc {
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   font-size: 14px;
   color: var(--muted);
-  line-height: 1.35;
+  display: -webkit-box;           /* компактное описание: до 2 строк */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Right side */
+/* Right (price + action) — в строку по умолчанию, экономим вертикаль */
 .itemSide {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
 }
-
 .price {
-  font-weight: 600;
+  font-weight: 650;
   font-variant-numeric: tabular-nums;
 }
 
 /* Buttons */
 .giftBtn {
   font: inherit;
-  padding: 6px 12px;
-  border-radius: 10px;
+  padding: 6px 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--divider);
   background: Canvas;
   cursor: pointer;
 }
 .giftBtn:hover { filter: brightness(1.05); }
+.giftBtn:active { transform: translateY(1px); }
 
-/* ===== Mobile layout ===== */
-@media (max-width: 640px) {
+/* ===== Responsive tweaks ===== */
+/* Очень узкие экраны: складываем цену над кнопкой, чтобы не прыгал текст */
+@media (max-width: 380px) {
   .item { grid-template-columns: 1fr; }
-  .itemSide { align-items: stretch; }
-  .price { align-self: start; }
-  .giftBtn { width: 100%; }
+  .itemSide {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: start;
+    gap: 8px;
+  }
+  .giftBtn { justify-self: start; }
+}
+
+/* Чуть шире телефоны: держим всё в один ряд, но уменьшаем отступы */
+@media (min-width: 381px) and (max-width: 640px) {
+  .main { padding-left: 12px; padding-right: 12px; }
+  .item  { padding: 8px 0; }
+  .itemDesc { -webkit-line-clamp: 1; } /* ещё компактнее */
+}
+
+/* Десктопы: немного воздуха */
+@media (min-width: 1024px) {
+  .main { max-width: 900px; }
 }
