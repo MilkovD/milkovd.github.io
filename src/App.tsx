@@ -44,6 +44,7 @@ export default function App() {
                 await applySession(data.session);
                 // 3) Подпишемся на изменения
                 const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
+                    console.log('Auth state changed:', _e, session);
                     await applySession(session);
                 });
                 setLoading(false);
@@ -55,6 +56,8 @@ export default function App() {
 
     async function applySession(session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']) {
         if (session?.user) {
+
+            console.log('applySession for user:', session.user.id, session.user.email);
 
             const allowed = await ensureAccess(session.user.id);
             if (!allowed) {
