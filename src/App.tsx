@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { supabase } from './supabaseClient';
 import HeaderBar from './components/HeaderBar';
 import MainContent from './components/MainContent';
+import { wishlist } from './whishlist';
 
 type UserInfo = {
   id: string;
@@ -87,32 +88,6 @@ export default function App() {
   }
 
   const displayName = user.fullName ?? (user.email ? user.email.split('@')[0] : 'друг');
-  const wishlist = [
-    {
-      title: 'PlayStation 5',
-      url: 'https://example.com/ps5',
-      description: 'Консоль для игр, версия Slim',
-      price: '65 000 ₽',
-    },
-    {
-      title: 'Телевизор',
-      url: 'https://example.com/tv',
-      description: '55", 4K, VA, 120 Гц',
-      price: '78 000 ₽',
-    },
-    {
-      title: 'Наушники',
-      url: 'https://example.com/headphones',
-      description: 'Беспроводные, ANC',
-      price: '18 990 ₽',
-    },
-    {
-      title: 'Электросамокат',
-      url: 'https://example.com/scooter',
-      description: 'Запас хода 40 км',
-      price: '32 500 ₽',
-    },
-  ];
 
   return (
     <>
