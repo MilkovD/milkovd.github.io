@@ -18,38 +18,16 @@ export default function App() {
         return new URL(import.meta.env.BASE_URL, window.location.origin).toString();
     }, []);
 
-    // 1) После возврата с Google: обменять ?code= на сессию
     useEffect(() => {
         (async () => {
-            try {
-                const url = new URL(window.location.href);
-                const code = url.searchParams.get('code');
-                const errorDesc = url.searchParams.get('error_description');
-                if (errorDesc) {
-                    console.error('OAuth error:', errorDesc);
-                }
-                if (code) {
-                    // Используем тот же вызов, что уже "заработал" у тебя
-                    await supabase.auth.exchangeCodeForSession(code);
-                    // подчистим URL
-                    url.searchParams.delete('code');
-                    url.searchParams.delete('state');
-                    url.searchParams.delete('error');
-                    url.searchParams.delete('error_description');
-                    window.history.replaceState({}, '', url.toString());
-                }
-            } finally {
-                // 2) Получить текущую сессию
-                const { data } = await supabase.auth.getSession();
-                await applySession(data.session);
-                // 3) Подпишемся на изменения
-                const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
-                    console.log('Auth state changed:', _e, session);
-                    await applySession(session);
-                });
-                setLoading(false);
-                return () => sub.subscription.unsubscribe();
-            }
+            const { data } = await supabase.auth.getSession();
+            await applySession(data.session);
+            const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
+                console.log('Auth state changed:', _e, session);
+                await applySession(session);
+            });
+            setLoading(false);
+            return () => sub.subscription.unsubscribe();
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
