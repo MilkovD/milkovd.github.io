@@ -41,10 +41,10 @@ export default function App() {
             } finally {
                 // 2) Получить текущую сессию
                 const { data } = await supabase.auth.getSession();
-                applySession(data.session);
+                await applySession(data.session);
                 // 3) Подпишемся на изменения
-                const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-                    applySession(session);
+                const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
+                    await applySession(session);
                 });
                 setLoading(false);
                 return () => sub.subscription.unsubscribe();
@@ -53,15 +53,23 @@ export default function App() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    function applySession(session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']) {
+    async function applySession(session: Awaited<ReturnType<typeof supabase.auth.getSession>>['data']['session']) {
         if (session?.user) {
-            const md = (session.user.user_metadata || {}) as any;
+
+            const allowed = await ensureAccess(session.user.id);
+            if (!allowed) {
+                alert('Доступ только по приглашению. Проверь ссылку с invite-кодом.');
+                await supabase.auth.signOut();
+                return;
+            }
+            
+            const metadata = (session.user.user_metadata || {}) as any;
             const fullName: string | null =
-                md.full_name ?? md.name ?? md.preferred_username ?? null;
+                metadata.full_name ?? metadata.name ?? metadata.preferred_username ?? null;
 
             // Пытаемся достать ссылку на аватар (Google обычно кладёт picture/avatar_url)
             const avatarUrl: string | null =
-                md.avatar_url ?? md.picture ?? null;
+                metadata.avatar_url ?? metadata.picture ?? null;
 
             setUser({
                 id: session.user.id,
@@ -74,10 +82,19 @@ export default function App() {
         }
     }
 
+    function getInviteFromUrl() {
+        return new URL(window.location.href).searchParams.get('invite');
+    }
+
     async function signInWithGoogle() {
+        const invite = getInviteFromUrl();
+        const redirect = invite
+            ? `${baseUrl}?invite=${encodeURIComponent(invite)}`
+            : baseUrl;
+
         await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: baseUrl }
+            options: { redirectTo: redirect }
         });
     }
 
@@ -85,6 +102,29 @@ export default function App() {
         await supabase.auth.signOut();
         setMenuOpen(false);
     }
+
+    async function ensureAccess(userId: string): Promise<boolean> {
+        // Уже в allowlist?
+        const { data: row } = await supabase
+            .from('allowed_users')
+            .select('user_id')
+            .eq('user_id', userId)
+            .maybeSingle();
+        if (row) return true;
+
+        // Пробуем заявить инвайт из URL
+        const invite = getInviteFromUrl();
+        if (!invite) return false;
+
+        const { data: ok, error } = await supabase.rpc('claim_invite', { p_code: invite });
+        if (error) {
+            console.error('claim_invite error', error);
+            return false;
+        }
+        return ok === true;
+    }
+
+
 
     // Закрытие меню по клику вне и по Esc
     const avatarBtnRef = useRef<HTMLButtonElement | null>(null);
