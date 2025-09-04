@@ -27,7 +27,7 @@ export default function MainContent({ title = 'Wishlist', items }: Props) {
             </div>
 
             <div className="itemSide">
-              {it.price && <div className="price">{it.price}</div>}
+              {it.price && <div className="price">{it.price} ₽</div>}
               {/* <button className="giftBtn" aria-label={`Подарю: ${it.title}`}>подарю</button> */}
             </div>
           </li>
