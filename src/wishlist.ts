@@ -1,21 +1,26 @@
 export const wishlist = [
     {
         title: 'PlayStation 5',
-        url: 'https://example.com/ps5',
-        description: 'Консоль для игр, версия Slim',
-        price: '65 000 ₽',
+        url: 'https://www.dns-shop.ru/product/3d1b360e98ebd582/igrovaa-konsol-playstation-5-slim/',
+        description: 'с дисководом',
+        price: '60 000 ₽',
     },
     {
         title: 'Телевизор',
-        url: 'https://example.com/tv',
-        description: '55", 4K, VA, 120 Гц',
-        price: '78 000 ₽',
+        description: '55", 4K, 120 Гц',
+        price: '100 000 ₽',
+    },
+    {
+        title: 'Проектор',
+        url: 'https://www.dns-shop.ru/product/841faef47fd7ed20/proektor-xiaomi-mi-smart-projector-2-pro-belyj/',
+        description: 'Xiaomi Mi Smart Projector 2 Pro или аналог',
+        price: '100 000 ₽',
     },
     {
         title: 'Наушники с костной проводимостью',
-        url: 'https://example.com/headphones',
-        description: 'Беспроводные, ANC',
-        price: '18 990 ₽',
+        url: 'https://www.dns-shop.ru/product/9d40b8659d6bd21a/besprovodnye-nausniki-shokz-openswim-pro-seryj/',
+        description: 'SHOKZ OPENSWIM PRO',
+        price: '20 000 ₽',
     },
     {
         title: 'Роутер Кинетик Ultra',
@@ -25,14 +30,14 @@ export const wishlist = [
     },
     {
         title: 'Электронная книга',
-        description: 'pocketbook, цветная',
-        url: 'https://example.com/scooter',
-        price: '32 500 ₽',
+        description: 'pocketbook, цветная, 7.8" и больше',
+        url: 'https://pocketbook.ru/shop/ustroystva/pocketbook-743k3-inkpad-color-3-stormy-sea/',
+        price: '30 000 ₽',
     },
     {
-        title: 'Часы Хуивей Pro',
-        url: 'https://example.com/scooter',
-        price: '32 500 ₽',
+        title: 'HUAWEI WATCH GT 5 Pro',
+        url: 'https://www.dns-shop.ru/product/7c7deb765f59d582/smart-casy-huawei-watch-gt-5-pro/',
+        price: '20 000 ₽',
     },
     {
         title: 'Квадрокоптер DJI',
