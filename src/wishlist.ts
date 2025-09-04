@@ -12,15 +12,34 @@ export const wishlist = [
         price: '78 000 ₽',
     },
     {
-        title: 'Наушники',
+        title: 'Наушники с костной проводимостью',
         url: 'https://example.com/headphones',
         description: 'Беспроводные, ANC',
         price: '18 990 ₽',
     },
     {
-        title: 'Электросамокат',
+        title: 'Механическая клавиатура',
         url: 'https://example.com/scooter',
-        description: 'Запас хода 40 км',
         price: '32 500 ₽',
     },
+    {
+        title: 'Роутер Кинетик Giga',
+        url: 'https://example.com/scooter',
+        price: '32 500 ₽',
+    },
+    {
+        title: 'Электронная книга, цветная',
+        url: 'https://example.com/scooter',
+        price: '32 500 ₽',
+    },
+    {
+        title: 'Часы Хуивей Pro',
+        url: 'https://example.com/scooter',
+        price: '32 500 ₽',
+    },
+    {
+        title: 'Квадрокоптер DJI Pro',
+        url: 'https://example.com/scooter',
+        price: '32 500 ₽',
+    }
 ];
