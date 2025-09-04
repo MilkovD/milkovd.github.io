@@ -18,12 +18,6 @@ export const wishlist = [
         price: '18 990 ₽',
     },
     {
-        title: 'Механическая клавиатура',
-        description: 'TKL, rgb, шумка',
-        url: 'https://keychron-russia.com/k8#!/tab/883312813-4',
-        price: '15 000 ₽',
-    },
-    {
         title: 'Роутер Кинетик Ultra',
         description: 'KN-1811',
         url: 'https://shop.keenetic.ru/product/keenetic-ultra-1811',
@@ -41,15 +35,22 @@ export const wishlist = [
         price: '32 500 ₽',
     },
     {
-        title: 'Квадрокоптер DJI Pro',
-        url: 'https://example.com/scooter',
-        price: '32 500 ₽',
+        title: 'Квадрокоптер DJI',
+        description: 'DJI Mini 4 Pro (DJI RC-N2)',
+        url: 'https://dji-rus.ru/seriya-mini/mini-4-pro/kvadrokopter-dji-mini-4-pro-fly-more-combo-plus-dji-rc-2/',
+        price: '140 000 ₽',
     },
     {
         title: 'Умные термоголовки для батарей',
         description: 'Aqara E1 SRTS-A01, 2 штуки',
         url: 'https://ozon.ru/t/HUzJsdV',
         price: '5 500 ₽',
-    }
+    },
+    // {
+    //     title: 'Механическая клавиатура',
+    //     description: 'TKL, rgb, шумка',
+    //     url: 'https://keychron-russia.com/k8#!/tab/883312813-4',
+    //     price: '15 000 ₽',
+    // }
 ];
 
