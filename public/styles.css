@@ -2,7 +2,7 @@
 :root {
   color-scheme: light dark;
 
-  --accent: #7c5cff;                   /* современный фиолетовый акцент */
+  --accent: #cfcfcf;
   --muted: color-mix(in oklab, CanvasText 35%, transparent);
   --divider: color-mix(in oklab, CanvasText 12%, transparent);
 
