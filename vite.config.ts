@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 
 function computeBase() {
   const repo = process.env.GITHUB_REPOSITORY?.split('/')[1] || '';
@@ -10,5 +11,13 @@ function computeBase() {
 
 export default defineConfig({
   plugins: [react()],
-  base: computeBase()
+  base: computeBase(),
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        wishlist: resolve(__dirname, 'wishlist.html')
+      }
+    }
+  }
 });

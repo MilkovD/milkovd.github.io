@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -39,8 +42,11 @@ jobs:
       - name: Copy static root pages
         run: |
           mkdir -p dist
-          cp currency-converter.html rustoeng.html wishlist.html dist/
+          cp currency-converter.html rustoeng.html dist/
           [ -d images ] && cp -r images dist/
+
+      - name: Show dist contents
+        run: ls -R dist
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

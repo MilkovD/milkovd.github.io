@@ -1,0 +1,240 @@
+:root {
+  color-scheme: light;
+  --bg: #0b1017;
+  --card: #0f1724;
+  --border: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 30% 20%, #1e293b 0, transparent 30%), radial-gradient(circle at 80% 10%, #0ea5e9 0, transparent 24%), var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.center {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: min(440px, 100%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+
+.authCard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.authActions {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #0b1624;
+  color: var(--text);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(120deg, #0ea5e9, #06b6d4);
+  border-color: transparent;
+  color: #0b1220;
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.35);
+}
+
+.btn-lg {
+  padding: 14px 18px;
+  font-size: 16px;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+}
+
+.gIcon {
+  border-radius: 50%;
+  background: white;
+  padding: 2px;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 20px 0;
+}
+
+.avatarButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: #0d1726;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.12s ease, transform 0.12s ease;
+}
+
+.avatarButton:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarFallback {
+  font-weight: 700;
+}
+
+.menu {
+  position: absolute;
+  top: 56px;
+  right: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  padding: 6px;
+  min-width: 160px;
+}
+
+.menuItem {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.menuItem:hover {
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.main {
+  max-width: 760px;
+  margin: 10px auto 48px;
+  padding: 0 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mainTitle {
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-size: clamp(24px, 5vw, 34px);
+}
+
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(15, 23, 36, 0.7);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.itemBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.itemTitle {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.itemTitle:hover {
+  color: var(--accent);
+}
+
+.itemDesc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.itemSide {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.price {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .item {
+    flex-direction: column;
+  }
+  .itemSide {
+    justify-content: flex-start;
+  }
+}
