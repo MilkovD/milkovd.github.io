@@ -46,11 +46,11 @@
       gap: 36px;
     }
     header.hero {
+      position: relative;
+      padding-right: 60px;
       display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: flex-start;
+      flex-direction: column;
+      gap: 12px;
     }
     .brand {
       display: inline-flex;
@@ -77,11 +77,14 @@
       max-width: 620px;
     }
     .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--text);
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
@@ -95,12 +98,12 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      gap: 12px;
     }
     .card {
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 16px;
+      padding: 12px;
       text-decoration: none;
       color: inherit;
       background: var(--surface);
@@ -109,11 +112,11 @@
       gap: 6px;
       transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
     }
-    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card:hover { border-color: var(--accent); transform: translateY(-1px); }
     .card:active { transform: translateY(0); }
     .meta { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
-    .card h2 { margin: 0; font-size: 18px; letter-spacing: -0.01em; }
-    .card p { margin: 0; color: var(--muted); }
+    .card h2 { margin: 0; font-size: 17px; letter-spacing: -0.01em; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
     .pill {
       display: inline-block;
       padding: 2px 8px;
@@ -145,6 +148,12 @@
       transition: border-color 0.2s ease, transform 0.12s ease;
     }
     .add-btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+    @media (max-width: 640px) {
+      .page { padding: 48px 18px 56px; }
+      header.hero { padding-right: 0; padding-top: 4px; }
+      .theme-toggle { position: fixed; top: 16px; right: 16px; z-index: 2; }
+      .grid { gap: 10px; }
+    }
   </style>
 </head>
 <body>
