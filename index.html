@@ -95,6 +95,19 @@
     .theme-toggle:hover { transform: translateY(-1px); border-color: var(--accent); }
     .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .theme-icon { font-size: 18px; line-height: 1; }
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .group-title {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
     .list {
       margin: 0;
       padding: 0;
@@ -115,17 +128,11 @@
       color: var(--text);
       text-decoration: none;
       display: inline-flex;
-      align-items: baseline;
-      gap: 8px;
+      align-items: center;
+      gap: 6px;
       font-weight: 700;
       letter-spacing: -0.01em;
       font-size: 17px;
-    }
-    .label {
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
     }
     .pill {
       display: inline-block;
@@ -185,44 +192,60 @@
     </header>
 
     <main aria-label="Сервисы">
-      <ul class="list">
-        <li class="item">
-          <a href="./currency-converter.html">
-            <span class="label">Финансы</span>
-            <span>Конвертер валют</span>
-          </a>
-          <p class="desc">Пересчёт основных валют с кешированием курсов и сохранением ввода.</p>
-        </li>
-        <li class="item">
-          <a href="./rustoeng.html">
-            <span class="label">Раскладка</span>
-            <span>Латиница -> Кириллица</span>
-          </a>
-          <p class="desc">Исправляет текст, набранный в неверной раскладке.</p>
-        </li>
-        <li class="item">
-          <a href="./rustoeng.html">
-            <span class="label">Раскладка</span>
-            <span>Кириллица -> Латиница</span>
-          </a>
-          <p class="desc">Переносит кириллицу в латиницу, если набрали текст русской раскладкой.</p>
-        </li>
-        <li class="item">
-          <a href="#" aria-disabled="true">
-            <span class="label">Research</span>
-            <span>Science tool</span>
-            <span class="pill">Скоро</span>
-          </a>
-          <p class="desc">Заготовка под научные утилиты. Замените ссылку, как только инструмент будет готов.</p>
-        </li>
-        <li class="item">
-          <a href="./wishlist.html">
-            <span class="label">Supabase</span>
-            <span>Wish list</span>
-          </a>
-          <p class="desc">Авторизованный список желаний: вход через Google, аватарка и сохранённые позиции.</p>
-        </li>
-      </ul>
+      <div class="group">
+        <p class="group-title">Финансы</p>
+        <ul class="list">
+          <li class="item">
+            <a href="./currency-converter.html">
+              <span>Конвертер валют</span>
+            </a>
+            <p class="desc">Пересчёт основных валют с кешированием курсов и сохранением ввода.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Раскладка</p>
+        <ul class="list">
+          <li class="item">
+            <a href="./rustoeng.html">
+              <span>Латиница -> Кириллица</span>
+            </a>
+            <p class="desc">Исправляет текст, набранный в неверной раскладке.</p>
+          </li>
+          <li class="item">
+            <a href="./rustoeng.html">
+              <span>Кириллица -> Латиница</span>
+            </a>
+            <p class="desc">Переносит кириллицу в латиницу, если набрали текст русской раскладкой.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Research</p>
+        <ul class="list">
+          <li class="item">
+            <a href="#" aria-disabled="true">
+              <span>Science tool</span>
+              <span class="pill">Скоро</span>
+            </a>
+            <p class="desc">Заготовка под научные утилиты. Замените ссылку, как только инструмент будет готов.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Supabase</p>
+        <ul class="list">
+          <li class="item">
+            <a href="./wishlist.html">
+              <span>Wish list</span>
+            </a>
+            <p class="desc">Авторизованный список желаний: вход через Google, аватарка и сохранённые позиции.</p>
+          </li>
+        </ul>
+      </div>
     </main>
 
     <!-- <footer>
