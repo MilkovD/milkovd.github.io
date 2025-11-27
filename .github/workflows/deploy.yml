@@ -36,6 +36,12 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
+      - name: Copy static root pages
+        run: |
+          mkdir -p dist
+          cp currency-converter.html rustoeng.html wishlist.html dist/
+          [ -d images ] && cp -r images dist/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
