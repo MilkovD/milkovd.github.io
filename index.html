@@ -1,17 +1,293 @@
-<!doctype html>
-<html lang="en">
-
+﻿<!doctype html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>wishlist-lite</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>mdcod tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root {
+      --bg: #f8f9fb;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #566072;
+      --border: #e5e7eb;
+      --accent: #111827;
+      color-scheme: light;
+    }
+    :root[data-theme="dark"] {
+      --bg: #111315;
+      --surface: #1a1c20;
+      --text: #e7e9ed;
+      --muted: #a6abb4;
+      --border: #2a2d33;
+      --accent: #d3d6dc;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 18px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    header.hero {
+      position: relative;
+      padding-right: 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+    h1 {
+      margin: 6px 0 6px;
+      font-size: clamp(28px, 4vw, 38px);
+      letter-spacing: -0.03em;
+    }
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      max-width: 620px;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .theme-toggle:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .theme-icon { font-size: 18px; line-height: 1; }
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 6px;
+    }
+    .group-title {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 4px 0 6px;
+    }
+    .item a {
+      color: var(--text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      font-size: 17px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 1px 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+    .desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+    }
+    .add-btn {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.12s ease;
+    }
+    .add-btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+    @media (max-width: 640px) {
+      .page { padding: 24px 14px 44px; gap: 24px; }
+      header.hero { padding-right: 56px; }
+      .grid { gap: 10px; }
+    }
+  </style>
 </head>
-
 <body>
-    <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
-</body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <div class="brand"><span class="brand-dot"></span>mdcod tools</div>
+        <!-- <h1>Лаконичный набор утилит</h1>
+        <p class="lede">Минималистичный список быстрых инструментов: конвертер валют, исправление раскладки, будущий science tool и Supabase-базовый wish list.</p> -->
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Сменить тему" title="Сменить тему">
+        <span class="theme-icon" aria-hidden="true">☀</span>
+      </button>
+    </header>
 
+    <main aria-label="Сервисы">
+      <div class="group">
+        <p class="group-title">Supabase</p>
+        <ul class="list">
+          <li class="item">
+            <a href="./wishlist.html">
+              <span>Wish list</span>
+            </a>
+            <p class="desc">Авторизованный список желаний: вход через Google, аватарка и сохранённые позиции.</p>
+          </li>
+        </ul>
+      </div>
+      <div class="group">
+        <p class="group-title">Финансы</p>
+        <ul class="list">
+          <li class="item">
+            <a href="./currency-converter.html">
+              <span>Конвертер валют</span>
+            </a>
+            <p class="desc">Пересчёт основных валют с кешированием курсов и сохранением ввода.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Раскладка</p>
+        <ul class="list">
+          <li class="item">
+            <a href="./rustoeng.html">
+              <span>Латиница -> Кириллица</span>
+            </a>
+            <p class="desc">Исправляет текст, набранный в неверной раскладке.</p>
+          </li>
+          <li class="item">
+            <a href="./rustoeng.html">
+              <span>Кириллица -> Латиница</span>
+            </a>
+            <p class="desc">Переносит кириллицу в латиницу, если набрали текст русской раскладкой.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Research</p>
+        <ul class="list">
+          <li class="item">
+            <a href="#" aria-disabled="true">
+              <span>Science tool</span>
+              <span class="pill">Скоро</span>
+            </a>
+            <p class="desc">Заготовка под научные утилиты. Замените ссылку, как только инструмент будет готов.</p>
+          </li>
+        </ul>
+      </div>
+
+    </main>
+
+    <!-- <footer>
+      <span>Карточки легко расширяются: скопируйте блок и подставьте ссылку.</span>
+      <a class="add-btn" href="mailto:hello@mdcod.dev?subject=Новый%20инструмент&body=Опишите%20ссылку%20и%20кратко%20назначение">+ Добавить идею</a>
+    </footer> -->
+  </div>
+
+  <script>
+    (function() {
+      const toggle = document.querySelector('.theme-toggle');
+      const icon = toggle.querySelector('.theme-icon');
+      const root = document.documentElement;
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      const order = ['light', 'dark', 'system'];
+      const icons = { light: '☀', dark: '🌙', system: '◐' };
+      const labels = { light: 'Светлая тема', dark: 'Тёмная тема', system: 'Системная тема' };
+      const saved = localStorage.getItem('theme-preference') || 'system';
+
+      function applyTheme(mode) {
+        const effective = mode === 'system' ? (media.matches ? 'dark' : 'light') : mode;
+        root.dataset.theme = effective;
+        icon.textContent = icons[mode];
+        toggle.title = labels[mode];
+        toggle.setAttribute('aria-label', 'Сменить тему: ' + labels[mode]);
+        localStorage.setItem('theme-preference', mode);
+        toggle.dataset.theme = mode;
+      }
+
+      function nextTheme() {
+        const current = toggle.dataset.theme || saved;
+        const idx = order.indexOf(current);
+        const next = order[(idx + 1) % order.length];
+        applyTheme(next);
+      }
+
+      applyTheme(saved);
+      toggle.addEventListener('click', nextTheme);
+      media.addEventListener('change', () => {
+        const pref = localStorage.getItem('theme-preference') || 'system';
+        if (pref === 'system') applyTheme('system');
+      });
+    })();
+  </script>
+</body>
 </html>
