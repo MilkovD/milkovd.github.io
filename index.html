@@ -10,23 +10,21 @@
   <meta name="color-scheme" content="light dark" />
   <style>
     :root {
-      --bg: #f6f7fb;
+      --bg: #f8f9fb;
       --surface: #ffffff;
       --text: #0f172a;
-      --muted: #475569;
-      --border: #e2e8f0;
-      --accent: #2563eb;
-      --shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+      --muted: #566072;
+      --border: #e5e7eb;
+      --accent: #111827;
       color-scheme: light;
     }
     :root[data-theme="dark"] {
-      --bg: #0b1221;
+      --bg: #0c1020;
       --surface: #111827;
       --text: #e5e7eb;
-      --muted: #94a3b8;
+      --muted: #9ca3af;
       --border: #1f2937;
-      --accent: #60a5fa;
-      --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      --accent: #e5e7eb;
       color-scheme: dark;
     }
     * { box-sizing: border-box; }
@@ -34,139 +32,98 @@
       margin: 0;
       min-height: 100vh;
       font-family: 'Manrope', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.12), transparent 25%),
-                  radial-gradient(circle at 80% 0%, rgba(14, 165, 233, 0.14), transparent 22%),
-                  var(--bg);
+      background: var(--bg);
       color: var(--text);
-      transition: background-color 0.25s ease, color 0.25s ease;
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
     }
     .page {
-      max-width: 1100px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 48px 24px 64px;
+      padding: 56px 20px 64px;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 36px;
     }
     header.hero {
       display: flex;
       justify-content: space-between;
-      gap: 24px;
+      gap: 16px;
       flex-wrap: wrap;
       align-items: flex-start;
     }
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 12px;
-      color: var(--muted);
-      margin: 0 0 8px;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
     }
     h1 {
-      font-size: clamp(28px, 4vw, 40px);
-      margin: 0 0 12px;
+      margin: 10px 0 8px;
+      font-size: clamp(28px, 4vw, 38px);
       letter-spacing: -0.03em;
     }
     .lede {
       margin: 0;
       color: var(--muted);
-      max-width: 640px;
-      line-height: 1.6;
+      max-width: 620px;
     }
-    .theme {
+    .theme-toggle {
+      border: 1px solid var(--border);
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      min-width: 220px;
-      box-shadow: var(--shadow);
-    }
-    .theme label {
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .theme-buttons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .theme-button {
-      border: 1px solid var(--border);
-      background: transparent;
       color: var(--text);
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.12s ease;
-    }
-    .theme-button.active {
-      border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, transparent);
-    }
-    .theme-button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-    .theme-button:hover { transform: translateY(-1px); }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 18px 16px;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: var(--shadow);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
-    }
-    .card h2 {
-      margin: 8px 0 10px;
-      font-size: 20px;
-      letter-spacing: -0.02em;
-    }
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 15px;
-    }
-    .tag {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .theme-toggle:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .theme-icon { font-size: 18px; line-height: 1; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
       gap: 6px;
-      font-size: 12px;
-      letter-spacing: 0.01em;
-      color: var(--muted);
-      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card:active { transform: translateY(0); }
+    .meta { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .card h2 { margin: 0; font-size: 18px; letter-spacing: -0.01em; }
+    .card p { margin: 0; color: var(--muted); }
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      padding: 6px 10px;
+      font-size: 11px;
+      margin-left: 6px;
+      color: var(--muted);
     }
-    .pill {
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .card.disabled {
-      cursor: not-allowed;
-      opacity: 0.65;
-    }
-    .footer-row {
+    footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -174,91 +131,94 @@
       flex-wrap: wrap;
       color: var(--muted);
       font-size: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
     }
     .add-btn {
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 12px;
       background: transparent;
       color: var(--text);
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       text-decoration: none;
+      font-weight: 600;
       transition: border-color 0.2s ease, transform 0.12s ease;
     }
     .add-btn:hover { transform: translateY(-1px); border-color: var(--accent); }
-    @media (max-width: 640px) {
-      .theme { width: 100%; }
-      .page { padding: 32px 18px 48px; }
-    }
   </style>
 </head>
 <body>
   <div class="page">
     <header class="hero">
       <div>
-        <p class="eyebrow">mdcod · toolbox</p>
-        <h1>Полезные сервисы в одном месте</h1>
-        <p class="lede">Лендинг со ссылками на все утилиты: конвертер валют, перевод раскладки, science tool и Supabase-базовый wish list. Легко добавить новые карточки при расширении.</p>
+        <div class="brand"><span class="brand-dot"></span>mdcod tools</div>
+        <h1>Лаконичный набор утилит</h1>
+        <p class="lede">Минималистичный список быстрых инструментов: конвертер валют, исправление раскладки, будущий science tool и Supabase-базовый wish list.</p>
       </div>
-      <div class="theme" aria-label="Переключатель темы">
-        <label>Тема</label>
-        <div class="theme-buttons" role="group" aria-label="Выбор темы">
-          <button class="theme-button" data-theme="light">Светлая</button>
-          <button class="theme-button" data-theme="dark">Тёмная</button>
-          <button class="theme-button" data-theme="system">Системная</button>
-        </div>
-      </div>
+      <button class="theme-toggle" type="button" aria-label="Сменить тему" title="Сменить тему">
+        <span class="theme-icon" aria-hidden="true">☀</span>
+      </button>
     </header>
 
     <main class="grid" aria-label="Сервисы">
       <a class="card" href="./currency-converter.html">
-        <span class="tag">Финансы</span>
+        <span class="meta">Финансы</span>
         <h2>Конвертер валют</h2>
-        <p>Быстрый пересчёт основных валют с сохранением последнего ввода и кешированием курсов.</p>
+        <p>Быстрый пересчёт основных валют с кешированием курсов и сохранением ввода.</p>
       </a>
       <a class="card" href="./rustoeng.html">
-        <span class="tag">Раскладка</span>
+        <span class="meta">Раскладка</span>
         <h2>Латиница -> Кириллица</h2>
         <p>Исправляет текст, набранный в неверной раскладке. Вводите латиницей — получаете кириллицу.</p>
       </a>
       <a class="card" href="#" aria-disabled="true">
-        <span class="tag">Research <span class="pill">Скоро</span></span>
+        <span class="meta">Research<span class="pill">Скоро</span></span>
         <h2>Science tool</h2>
-        <p>Заготовка под научные утилиты. Добавьте ссылку или страницу, когда инструмент будет готов.</p>
+        <p>Заготовка под научные утилиты. Замените ссылку, как только инструмент будет готов.</p>
       </a>
       <a class="card" href="./wishlist.html">
-        <span class="tag">Supabase</span>
+        <span class="meta">Supabase</span>
         <h2>Wish list</h2>
-        <p>Авторизованный список желаний: вход через Google, аватарка, сохранённые позиции.</p>
+        <p>Авторизованный список желаний: вход через Google, аватарка и сохранённые позиции.</p>
       </a>
     </main>
 
-    <div class="footer-row">
-      <span>Расширяемый список: дублируйте карточку, меняйте ссылку и описание.</span>
+    <footer>
+      <span>Карточки легко расширяются: скопируйте блок и подставьте ссылку.</span>
       <a class="add-btn" href="mailto:hello@mdcod.dev?subject=Новый%20инструмент&body=Опишите%20ссылку%20и%20кратко%20назначение">+ Добавить идею</a>
-    </div>
+    </footer>
   </div>
 
   <script>
     (function() {
-      const buttons = Array.from(document.querySelectorAll('.theme-button'));
+      const toggle = document.querySelector('.theme-toggle');
+      const icon = toggle.querySelector('.theme-icon');
       const root = document.documentElement;
       const media = window.matchMedia('(prefers-color-scheme: dark)');
+      const order = ['light', 'dark', 'system'];
+      const icons = { light: '☀', dark: '🌙', system: '◐' };
+      const labels = { light: 'Светлая тема', dark: 'Тёмная тема', system: 'Системная тема' };
       const saved = localStorage.getItem('theme-preference') || 'system';
 
       function applyTheme(mode) {
         const effective = mode === 'system' ? (media.matches ? 'dark' : 'light') : mode;
         root.dataset.theme = effective;
+        icon.textContent = icons[mode];
+        toggle.title = labels[mode];
+        toggle.setAttribute('aria-label', 'Сменить тему: ' + labels[mode]);
         localStorage.setItem('theme-preference', mode);
-        buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === mode));
+        toggle.dataset.theme = mode;
+      }
+
+      function nextTheme() {
+        const current = toggle.dataset.theme || saved;
+        const idx = order.indexOf(current);
+        const next = order[(idx + 1) % order.length];
+        applyTheme(next);
       }
 
       applyTheme(saved);
-      buttons.forEach(btn => btn.addEventListener('click', () => applyTheme(btn.dataset.theme)));
+      toggle.addEventListener('click', nextTheme);
       media.addEventListener('change', () => {
         const pref = localStorage.getItem('theme-preference') || 'system';
         if (pref === 'system') applyTheme('system');
