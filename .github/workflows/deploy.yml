@@ -35,6 +35,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_BOOKINGS_API: ${{ secrets.BOOKINGS_API_URL }}
 
       - name: Copy static root pages
         run: |

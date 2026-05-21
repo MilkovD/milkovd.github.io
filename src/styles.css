@@ -238,3 +238,113 @@ body {
     justify-content: flex-start;
   }
 }
+
+.item--booked {
+  opacity: 0.55;
+}
+
+.bookBtn {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.14s, color 0.14s;
+}
+.bookBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.bookedBadge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4ade80;
+  white-space: nowrap;
+}
+
+.bookingStatus {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.cancelBtn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+.cancelBtn:hover { color: var(--text); }
+
+.bookingForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.bookingInputRow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nameInput {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 6px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  width: 130px;
+  outline: none;
+}
+.nameInput:focus { border-color: var(--accent); }
+.nameInput::placeholder { color: var(--muted); }
+
+.confirmBtn {
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.confirmBtn:disabled { opacity: 0.5; cursor: default; }
+.confirmBtn:not(:disabled):hover { background: rgba(56, 189, 248, 0.1); }
+
+.cancelFormBtn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  padding: 5px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+.cancelFormBtn:hover { border-color: var(--text); color: var(--text); }
+
+.bookingError {
+  margin: 0;
+  font-size: 12px;
+  color: #f87171;
+}
+
