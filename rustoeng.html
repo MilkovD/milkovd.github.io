@@ -104,19 +104,13 @@
     .theme-icon { font-size: 18px; line-height: 1; }
     .group {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex-direction: row;
+      align-items: stretch;
+      gap: 16px;
       margin-top: 10px;
-      padding-top: 6px;
-    }
-    .group-title {
-      margin: 0;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
     }
     .converter-card {
+      flex: 1;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -142,6 +136,7 @@
     }
     textarea {
       width: 100%;
+      flex: 1;
       min-height: 90px;
       resize: vertical;
       padding: 10px 12px;
@@ -162,7 +157,7 @@
     }
     .result-row {
       display: flex;
-      align-items: flex-start;
+      align-items: flex-end;
       gap: 10px;
     }
     .result-text {
@@ -200,6 +195,7 @@
     @media (max-width: 640px) {
       .page { padding: 24px 14px 44px; gap: 24px; }
       header.hero { padding-right: 56px; }
+      .group { flex-direction: column; }
     }
   </style>
 </head>
@@ -221,8 +217,6 @@
 
     <main>
       <div class="group">
-        <p class="group-title">Раскладка</p>
-
         <div class="converter-card">
           <span class="card-label">Латиница → Кириллица</span>
           <p class="card-desc">Вставьте текст, набранный латинскими клавишами, когда должна была быть кириллица.</p>
