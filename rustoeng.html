@@ -1,58 +1,355 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keyboard Translator RUS-ENG</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        input {
-            padding: 10px;
-            width: 300px;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Раскладка — mdcod tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root {
+      --bg: #f8f9fb;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #566072;
+      --border: #e5e7eb;
+      --accent: #111827;
+      color-scheme: light;
+    }
+    :root[data-theme="dark"] {
+      --bg: #111315;
+      --surface: #1a1c20;
+      --text: #e7e9ed;
+      --muted: #a6abb4;
+      --border: #2a2d33;
+      --accent: #d3d6dc;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 18px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    header.hero {
+      position: relative;
+      padding-right: 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+    .back-arrow {
+      font-size: 13px;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+    h1 {
+      margin: 6px 0 6px;
+      font-size: clamp(24px, 4vw, 32px);
+      letter-spacing: -0.03em;
+    }
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      max-width: 620px;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .theme-toggle:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .theme-icon { font-size: 18px; line-height: 1; }
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 6px;
+    }
+    .group-title {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .converter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.18s ease;
+    }
+    .converter-card:focus-within {
+      border-color: var(--accent);
+    }
+    .card-label {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+    .card-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      resize: vertical;
+      padding: 10px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.18s ease;
+    }
+    textarea:focus {
+      border-color: var(--accent);
+    }
+    textarea::placeholder {
+      color: var(--muted);
+    }
+    .result-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .result-text {
+      flex: 1;
+      min-height: 38px;
+      padding: 8px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      color: var(--text);
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+    .result-empty {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .copy-btn {
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.18s ease, transform 0.12s ease;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .copy-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    @media (max-width: 640px) {
+      .page { padding: 24px 14px 44px; gap: 24px; }
+      header.hero { padding-right: 56px; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Перевод русских клавиш на английские</h1>
-    <input type="text" id="inputField" placeholder="Введите текст на русском">
-    <p>Переведенный текст: <span id="translatedText"></span></p>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <a class="brand" href="./index.html">
+          <span class="brand-dot"></span>mdcod tools
+          <span class="back-arrow">← назад</span>
+        </a>
+        <h1>Исправление раскладки</h1>
+        <p class="lede">Два инструмента: из латиницы в кириллицу и из кириллицы в латиницу.</p>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Сменить тему" title="Сменить тему">
+        <span class="theme-icon" aria-hidden="true">☀</span>
+      </button>
+    </header>
 
-    <script>
-        // Словарь для перевода русских клавиш на английские, включая цифры и специальные символы
-        const translateKey = (char) => {
-            const mapping = {
-                а: 'f', А: 'F', б: ',', Б: '<', в: 'd', В: 'D', г: 'u', Г: 'U', д: 'l', Д: 'L',
-                е: 't', Е: 'T', ё: '`', Ё: '~', ж: ';', Ж: ':', з: 'p', З: 'P', и: 'b', И: 'B',
-                й: 'q', Й: 'Q', к: 'r', К: 'R', л: 'k', Л: 'K', м: 'v', М: 'V', н: 'y', Н: 'Y',
-                о: 'j', О: 'J', п: 'g', П: 'G', р: 'h', Р: 'H', с: 'c', С: 'C', т: 'n', Т: 'N',
-                у: 'e', У: 'E', ф: 'a', Ф: 'A', х: '[', Х: '{', ц: 'w', Ц: 'W', ч: 'x', Ч: 'X',
-                ш: 'i', Ш: 'I', щ: 'o', Щ: 'O', ъ: ']', Ъ: '}', ы: 's', Ы: 'S', ь: 'm', Ь: 'M',
-                э: "'", Э: '"', ю: '.', Ю: '>', я: 'z', Я: 'Z',
-                '1': '1', '!': '!', '2': '2', '"': '@', '3': '3', '№': '#', '4': '4', ';': '$',
-                '5': '5', '%': '%', '6': '6', ':': '^', '7': '7', '?': '&', '8': '8', '*': '*',
-                '9': '9', '(': '(', '0': '0', ')': ')', '-': '-', '_': '_', '=': '=', '+': '+'
-            };
+    <main>
+      <div class="group">
+        <p class="group-title">Раскладка</p>
 
-            return mapping[char] || char;
-        };
+        <div class="converter-card">
+          <span class="card-label">Латиница → Кириллица</span>
+          <p class="card-desc">Вставьте текст, набранный латинскими клавишами, когда должна была быть кириллица.</p>
+          <textarea id="lat-input" placeholder="Введите текст латиницей…" autocomplete="off" spellcheck="false"></textarea>
+          <div class="result-row">
+            <div class="result-text" id="lat-result"><span class="result-empty">Результат появится здесь</span></div>
+            <button class="copy-btn" id="lat-copy" type="button">Копировать</button>
+          </div>
+        </div>
 
-        // Функция для обработки ввода и перевода символов
-        const handleInputChange = (event) => {
-            const value = event.target.value;
-            const translatedValue = value
-                .split('')
-                .map((char) => translateKey(char))
-                .join('');
-            document.getElementById('translatedText').textContent = translatedValue;
-        };
+        <div class="converter-card">
+          <span class="card-label">Кириллица → Латиница</span>
+          <p class="card-desc">Вставьте текст, набранный кириллическими клавишами, когда должна была быть латиница.</p>
+          <textarea id="cyr-input" placeholder="Введите текст кириллицей…" autocomplete="off" spellcheck="false"></textarea>
+          <div class="result-row">
+            <div class="result-text" id="cyr-result"><span class="result-empty">Результат появится здесь</span></div>
+            <button class="copy-btn" id="cyr-copy" type="button">Копировать</button>
+          </div>
+        </div>
 
-        // Добавляем обработчик события к полю ввода
-        document.getElementById('inputField').addEventListener('input', handleInputChange);
-    </script>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Кириллица → Латиница
+    const cyrToLat = {
+      а:'f',А:'F',б:',',Б:'<',в:'d',В:'D',г:'u',Г:'U',д:'l',Д:'L',
+      е:'t',Е:'T',ё:'`',Ё:'~',ж:';',Ж:':',з:'p',З:'P',и:'b',И:'B',
+      й:'q',Й:'Q',к:'r',К:'R',л:'k',Л:'K',м:'v',М:'V',н:'y',Н:'Y',
+      о:'j',О:'J',п:'g',П:'G',р:'h',Р:'H',с:'c',С:'C',т:'n',Т:'N',
+      у:'e',У:'E',ф:'a',Ф:'A',х:'[',Х:'{',ц:'w',Ц:'W',ч:'x',Ч:'X',
+      ш:'i',Ш:'I',щ:'o',Щ:'O',ъ:']',Ъ:'}',ы:'s',Ы:'S',ь:'m',Ь:'M',
+      э:"'",Э:'"',ю:'.',Ю:'>',я:'z',Я:'Z'
+    };
+
+    // Латиница → Кириллица (обратное отображение)
+    const latToCyr = {
+      f:'а',F:'А',',':'б','<':'Б',d:'в',D:'В',u:'г',U:'Г',l:'д',L:'Д',
+      t:'е',T:'Е','`':'ё','~':'Ё',';':'ж',':':'Ж',p:'з',P:'З',b:'и',B:'И',
+      q:'й',Q:'Й',r:'к',R:'К',k:'л',K:'Л',v:'м',V:'М',y:'н',Y:'Н',
+      j:'о',J:'О',g:'п',G:'П',h:'р',H:'Р',c:'с',C:'С',n:'т',N:'Т',
+      e:'у',E:'У',a:'ф',A:'Ф','[':'х','{':'Х',w:'ц',W:'Ц',x:'ч',X:'Ч',
+      i:'ш',I:'Ш',o:'щ',O:'Щ',']':'ъ','}':'Ъ',s:'ы',S:'Ы',m:'ь',M:'Ь',
+      "'":'э','"':'Э','.':'ю','>':'Ю',z:'я',Z:'Я'
+    };
+
+    function translate(text, map) {
+      return text.split('').map(c => map[c] !== undefined ? map[c] : c).join('');
+    }
+
+    function setResult(el, text) {
+      if (text) {
+        el.textContent = text;
+        el.classList.remove('result-empty');
+      } else {
+        el.innerHTML = '<span class="result-empty">Результат появится здесь</span>';
+      }
+    }
+
+    const latInput = document.getElementById('lat-input');
+    const latResult = document.getElementById('lat-result');
+    const latCopy = document.getElementById('lat-copy');
+
+    latInput.addEventListener('input', () => {
+      setResult(latResult, translate(latInput.value, latToCyr));
+    });
+
+    latCopy.addEventListener('click', () => {
+      const text = latResult.textContent;
+      if (!text || latResult.querySelector('.result-empty')) return;
+      navigator.clipboard.writeText(text).then(() => {
+        latCopy.textContent = 'Скопировано!';
+        setTimeout(() => { latCopy.textContent = 'Копировать'; }, 1500);
+      });
+    });
+
+    const cyrInput = document.getElementById('cyr-input');
+    const cyrResult = document.getElementById('cyr-result');
+    const cyrCopy = document.getElementById('cyr-copy');
+
+    cyrInput.addEventListener('input', () => {
+      setResult(cyrResult, translate(cyrInput.value, cyrToLat));
+    });
+
+    cyrCopy.addEventListener('click', () => {
+      const text = cyrResult.textContent;
+      if (!text || cyrResult.querySelector('.result-empty')) return;
+      navigator.clipboard.writeText(text).then(() => {
+        cyrCopy.textContent = 'Скопировано!';
+        setTimeout(() => { cyrCopy.textContent = 'Копировать'; }, 1500);
+      });
+    });
+
+    // Тема
+    (function() {
+      const toggle = document.querySelector('.theme-toggle');
+      const icon = toggle.querySelector('.theme-icon');
+      const root = document.documentElement;
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      const order = ['light', 'dark', 'system'];
+      const icons = { light: '☀', dark: '🌙', system: '◐' };
+      const labels = { light: 'Светлая тема', dark: 'Тёмная тема', system: 'Системная тема' };
+      const saved = localStorage.getItem('theme-preference') || 'system';
+
+      function applyTheme(mode) {
+        const effective = mode === 'system' ? (media.matches ? 'dark' : 'light') : mode;
+        root.dataset.theme = effective;
+        icon.textContent = icons[mode];
+        toggle.title = labels[mode];
+        toggle.setAttribute('aria-label', 'Сменить тему: ' + labels[mode]);
+        localStorage.setItem('theme-preference', mode);
+        toggle.dataset.theme = mode;
+      }
+
+      function nextTheme() {
+        const current = toggle.dataset.theme || saved;
+        const idx = order.indexOf(current);
+        applyTheme(order[(idx + 1) % order.length]);
+      }
+
+      applyTheme(saved);
+      toggle.addEventListener('click', nextTheme);
+      media.addEventListener('change', () => {
+        if ((localStorage.getItem('theme-preference') || 'system') === 'system') applyTheme('system');
+      });
+    })();
+  </script>
 </body>
 </html>
