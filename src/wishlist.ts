@@ -1,11 +1,5 @@
 export const wishlist = [
     {
-        title: 'Умные термоголовки для батарей',
-        description: 'Aqara E1 SRTS-A01, 3 штуки',
-        url: 'https://ozon.ru/t/HUzJsdV',
-        price: '5 500',
-    },
-    {
         title: 'Наушники с костной проводимостью',
         url: 'https://www.dns-shop.ru/product/9d40b8659d6bd21a/besprovodnye-nausniki-shokz-openswim-pro-seryj/',
         description: 'SHOKZ OPENSWIM PRO',
@@ -16,12 +10,6 @@ export const wishlist = [
         description: 'pocketbook, цветная, 7.8" и больше',
         url: 'https://pocketbook.ru/shop/ustroystva/pocketbook-743k3-inkpad-color-3-stormy-sea/',
         price: '30 000',
-    },
-    {
-        title: 'PlayStation 5',
-        url: 'https://www.dns-shop.ru/product/3d1b360e98ebd582/igrovaa-konsol-playstation-5-slim/',
-        description: 'с дисководом',
-        price: '60 000',
     },
     {
         title: 'Телевизор',
@@ -50,12 +38,6 @@ export const wishlist = [
         description: 'DJI Mini 4 Pro (DJI RC-N2)',
         url: 'https://dji-rus.ru/seriya-mini/mini-4-pro/kvadrokopter-dji-mini-4-pro-fly-more-combo-plus-dji-rc-2/',
         price: '140 000',
-    },
-    // {
-    //     title: 'Механическая клавиатура',
-    //     description: 'TKL, rgb, шумка',
-    //     url: 'https://keychron-russia.com/k8#!/tab/883312813-4',
-    //     price: '15 000',
-    // }
+    }
 ];
 
